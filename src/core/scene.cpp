@@ -1,9 +1,10 @@
 #include "scene.h"
 
 
-Scene::Scene(aether::graphics::Spritesheet *sheet, const LevelConstructionData &level)
+Scene::Scene(aether::graphics::Spritesheet *sheet, const LevelConstructionData &level, Assets& assets)
     : m_tileMap(Constants::LevelsWidth, Constants::LevelsHeight),
-      m_sheet(sheet)
+      m_sheet(sheet),
+      m_assets(assets)
 {
     m_playerPos.set(
                 level.playerSpawn().x(),
@@ -136,6 +137,11 @@ void Scene::update(uint64_t delta)
 
     bool wants_movement = m_playerMovementDirection.x() + m_playerMovementDirection.y() != 0;
 
+    if( wants_movement )
+    {
+        m_assets.select.play(0.4f);
+    }
+
     if( wants_movement && m_playerLockedInIce )
     {
         auto new_player_tile = m_playerPos + m_lastPlayerMovementDirection;
@@ -162,9 +168,11 @@ void Scene::update(uint64_t delta)
         {
         case TileContents::DimensionShifter:
             m_isHalloween = !m_isHalloween;
+            m_assets.shift.play();
             break;
         case TileContents::GoalItem:
             m_numGoalItems++;
+            m_assets.pickup.play();
             if( m_totalGoalItems == m_numGoalItems )
             {
                 m_sceneStatus = Status::Won;
@@ -193,6 +201,10 @@ void Scene::update(uint64_t delta)
         }
     }
 
+    if( m_sceneStatus == Status::Lost )
+    {
+        m_assets.died.play();
+    }
 }
 
 Scene::Status Scene::status()

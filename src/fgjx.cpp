@@ -14,8 +14,8 @@ int FGJX::ready(int argc, char **argv)
 {
     assets.load();
     setScreen(&menuScreen);
-    //assets.theme.playmode(aether::audio::PlayMode::Loop);
-    //assets.theme.play();
+    assets.theme.playmode(aether::audio::PlayMode::Loop);
+    assets.theme.play();
     return 0;
 }
 

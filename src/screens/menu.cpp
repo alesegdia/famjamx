@@ -48,8 +48,6 @@ void MenuScreen::render()
         m_game->assets.font.print("repair the ship and", 12, 80, aether::graphics::Color(255, 255, 255));
         m_game->assets.font.print("return to FluxLand!", 14, 90, aether::graphics::Color(255, 255, 255));
     }
-
-
 }
 
 
@@ -57,6 +55,7 @@ void MenuScreen::update(uint64_t delta)
 {
     if( aether::core::is_key_just_pressed(aether::core::KeyCode::Enter) )
     {
+        m_game->assets.select.play(0.4f);
         m_status++;
         if( m_status == 3 )
         {

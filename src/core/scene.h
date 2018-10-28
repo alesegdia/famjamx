@@ -6,6 +6,7 @@
 
 #include "constants.h"
 #include "levels.h"
+#include "../assets.h"
 
 enum class TileType
 {
@@ -45,7 +46,7 @@ public:
         Won
     };
 
-    Scene(aether::graphics::Spritesheet* sheet, const LevelConstructionData& lcd);
+    Scene(aether::graphics::Spritesheet* sheet, const LevelConstructionData& lcd, Assets& assets);
     ~Scene();
 
     void render();
@@ -94,5 +95,6 @@ private:
     bool m_playerLockedInIce = false;
     aether::math::Vec2i m_playerMovementDirection;
     aether::math::Vec2i m_lastPlayerMovementDirection;
+    Assets& m_assets;
 
 };

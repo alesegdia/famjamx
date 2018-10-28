@@ -11,7 +11,7 @@ GameplayScreen::GameplayScreen(FGJX *game)
 
 void GameplayScreen::show()
 {
-    m_scene.reset(new Scene(&m_game->assets.alltiles_sheet, m_game->getCurrentLevel()));
+    m_scene.reset(new Scene(&m_game->assets.alltiles_sheet, m_game->getCurrentLevel(), m_game->assets));
 }
 
 void GameplayScreen::hide()
